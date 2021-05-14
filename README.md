@@ -2,7 +2,7 @@
 
 ```js
 
- 'use strict';
+'use strict';
 
 const fs = require('fs');
 const SourceMap = require('source-map');
