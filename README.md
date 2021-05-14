@@ -1,4 +1,47 @@
-demo for my own
+# 我的实例
+
+```js
+
+ 'use strict';
+
+const fs = require('fs');
+const SourceMap = require('source-map');
+
+const { readFileSync } = fs;
+const { SourceMapConsumer } = SourceMap;
+
+const rawSourceMap = JSON.parse(
+  readFileSync(
+    'D:\\Projects\\Git\\websites\\configurator-web-phase5\\Configurator.Web\\ClientApp\\build\\5.0.7\\static\\js\\main.js.map'
+  )
+);
+
+function errorTrack() {
+  SourceMapConsumer.with(rawSourceMap, null, (consumer) => {
+    const pos = consumer.originalPositionFor({
+      line: 2,
+      column: 725210,
+      bias: SourceMapConsumer.LEAST_UPPER_BOUND, //SourceMapConsumer.LEAST_UPPER_BOUND, Defaults to SourceMapConsumer.GREATEST_LOWER_BOUND
+    });
+    console.log('--------------------------------------------------------------------------------');
+    console.log('originalPositionFor:', pos);
+    console.log('--------------------------------------------------------------------------------');
+    if (pos && pos.source) {
+      console.log('generatedPositionFor:', consumer.generatedPositionFor({ ...pos }));
+    }
+    // { line: 2, column: 28 }
+
+    // consumer.eachMapping(function (m) {
+    //   console.log('eachMapping', m);
+    // });
+  });
+}
+errorTrack();
+
+//module.exports = errorTrack;
+
+
+```
 
 # Source Map
 
